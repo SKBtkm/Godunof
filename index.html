@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Godunov Заказ</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.container {
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 16px;
+  width: 350px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+input {
+  width: 40px;
+  text-align: center;
+}
+
+.contact {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.order-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: green;
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🍷 Godunov</h2>
+
+  <div class="item">
+    <span>Classic</span>
+    <div>
+      <button onclick="changeQty('classic', -1)">-</button>
+      <input id="classic" value="0" readonly>
+      <button onclick="changeQty('classic', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <span>Premium</span>
+    <div>
+      <button onclick="changeQty('premium', -1)">-</button>
+      <input id="premium" value="0" readonly>
+      <button onclick="changeQty('premium', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <span>Gold</span>
+    <div>
+      <button onclick="changeQty('gold', -1)">-</button>
+      <input id="gold" value="0" readonly>
+      <button onclick="changeQty('gold', 1)">+</button>
+    </div>
+  </div>
+
+  <input class="contact" id="contact" type="text" placeholder="Ваш номер">
+
+  <button class="order-btn" onclick="sendSMS()">Оформить заказ</button>
+</div>
+
+<script>
+function changeQty(id, delta) {
+  let input = document.getElementById(id);
+  let value = parseInt(input.value);
+  value = Math.max(0, value + delta);
+  input.value = value;
+}
+
+function sendSMS() {
+  let classic = document.getElementById("classic").value;
+  let premium = document.getElementById("premium").value;
+  let gold = document.getElementById("gold").value;
+  let contact = document.getElementById("contact").value;
+
+  let text = `НОВЫЙ ЗАКАЗ:\nClassic: ${classic}\nPremium: ${premium}\nGold: ${gold}\nКонтакт: ${contact}`;
+
+  let phone = "99361828377";
+
+  window.location.href = `sms:${phone}?body=${encodeURIComponent(text)}`;
+}
+</script>
+
+</body>
+</html>
