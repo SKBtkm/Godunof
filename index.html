@@ -2,61 +2,103 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Godunov Заказ</title>
+<title>Godunoff</title>
 
 <style>
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: #111;
-  color: #fff;
+  background: #eef3f9;
   display: flex;
   justify-content: center;
-  padding: 40px;
+  padding: 30px;
 }
 
 .container {
-  background: #1a1a1a;
-  padding: 25px;
-  border-radius: 16px;
-  width: 350px;
+  width: 360px;
 }
 
-h2 {
+.header {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.item {
-  display: flex;
-  justify-content: space-between;
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.header p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
   margin-bottom: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.name {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.price {
+  color: #1a73e8;
+  font-weight: bold;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 button {
-  padding: 5px 10px;
-  border-radius: 6px;
+  background: #1a73e8;
+  color: white;
   border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-input {
+button:hover {
+  background: #155ec4;
+}
+
+.qty {
   width: 40px;
   text-align: center;
 }
 
-.contact {
-  width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 8px;
+.order {
+  margin-top: 20px;
 }
 
-.order-btn {
+.order p {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.order input {
   width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  background: green;
-  color: white;
+  padding: 10px;
   border-radius: 10px;
-  border: none;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.order button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
 }
 </style>
 
@@ -64,59 +106,101 @@ input {
 <body>
 
 <div class="container">
-  <h2>🍷 Godunov</h2>
 
-  <div class="item">
-    <span>Classic</span>
-    <div>
-      <button onclick="changeQty('classic', -1)">-</button>
-      <input id="classic" value="0" readonly>
-      <button onclick="changeQty('classic', 1)">+</button>
+  <div class="header">
+    <h1>Godunoff</h1>
+    <p>from Serdar Boroda</p>
+  </div>
+
+  <div class="card">
+    <div class="name">Кедровый орех 40% 0.5л</div>
+    <div class="price">300 TMT</div>
+    <div class="controls">
+      <button onclick="change('cedar', -1)">-</button>
+      <input id="cedar" class="qty" value="0" readonly>
+      <button onclick="change('cedar', 1)">+</button>
     </div>
   </div>
 
-  <div class="item">
-    <span>Premium</span>
-    <div>
-      <button onclick="changeQty('premium', -1)">-</button>
-      <input id="premium" value="0" readonly>
-      <button onclick="changeQty('premium', 1)">+</button>
+  <div class="card">
+    <div class="name">Gold 40% 0.5л</div>
+    <div class="price">300 TMT</div>
+    <div class="controls">
+      <button onclick="change('gold05', -1)">-</button>
+      <input id="gold05" class="qty" value="0" readonly>
+      <button onclick="change('gold05', 1)">+</button>
     </div>
   </div>
 
-  <div class="item">
-    <span>Gold</span>
-    <div>
-      <button onclick="changeQty('gold', -1)">-</button>
-      <input id="gold" value="0" readonly>
-      <button onclick="changeQty('gold', 1)">+</button>
+  <div class="card">
+    <div class="name">Black Edition 40% 0.5л</div>
+    <div class="price">300 TMT</div>
+    <div class="controls">
+      <button onclick="change('black', -1)">-</button>
+      <input id="black" class="qty" value="0" readonly>
+      <button onclick="change('black', 1)">+</button>
     </div>
   </div>
 
-  <input class="contact" id="contact" type="text" placeholder="Ваш номер">
+  <div class="card">
+    <div class="name">Royal 40% 0.5л</div>
+    <div class="price">300 TMT</div>
+    <div class="controls">
+      <button onclick="change('royal', -1)">-</button>
+      <input id="royal" class="qty" value="0" readonly>
+      <button onclick="change('royal', 1)">+</button>
+    </div>
+  </div>
 
-  <button class="order-btn" onclick="sendSMS()">Оформить заказ</button>
+  <div class="card">
+    <div class="name">Platinum 40% 0.5л</div>
+    <div class="price">300 TMT</div>
+    <div class="controls">
+      <button onclick="change('platinum', -1)">-</button>
+      <input id="platinum" class="qty" value="0" readonly>
+      <button onclick="change('platinum', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="name">Gold 40% 0.7л</div>
+    <div class="price">300 TMT</div>
+    <div class="controls">
+      <button onclick="change('gold07', -1)">-</button>
+      <input id="gold07" class="qty" value="0" readonly>
+      <button onclick="change('gold07', 1)">+</button>
+    </div>
+  </div>
+
+  <div class="order">
+    <p>Укажите номер телефона и при необходимости добавьте комментарий к заказу</p>
+    <input id="contact" placeholder="Например: +993... доставить после 18:00">
+    <button onclick="order()">Оформить заказ</button>
+  </div>
+
 </div>
 
 <script>
-function changeQty(id, delta) {
-  let input = document.getElementById(id);
-  let value = parseInt(input.value);
-  value = Math.max(0, value + delta);
-  input.value = value;
+function change(id, delta) {
+  let el = document.getElementById(id);
+  let val = parseInt(el.value);
+  val = Math.max(0, val + delta);
+  el.value = val;
 }
 
-function sendSMS() {
-  let classic = document.getElementById("classic").value;
-  let premium = document.getElementById("premium").value;
-  let gold = document.getElementById("gold").value;
-  let contact = document.getElementById("contact").value;
-
-  let text = `НОВЫЙ ЗАКАЗ:\nClassic: ${classic}\nPremium: ${premium}\nGold: ${gold}\nКонтакт: ${contact}`;
+function order() {
+  let text = `ЗАКАЗ GODUNOFF:%0A
+Кедровый: ${document.getElementById("cedar").value}%0A
+Gold 0.5: ${document.getElementById("gold05").value}%0A
+Black: ${document.getElementById("black").value}%0A
+Royal: ${document.getElementById("royal").value}%0A
+Platinum: ${document.getElementById("platinum").value}%0A
+Gold 0.7: ${document.getElementById("gold07").value}%0A
+%0AКонтакт: ${document.getElementById("contact").value}`;
 
   let phone = "99361828377";
 
-  window.location.href = `sms:${phone}?body=${encodeURIComponent(text)}`;
+  window.location.href = `sms:${phone}?body=${text}`;
 }
 </script>
 
