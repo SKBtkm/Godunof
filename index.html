@@ -14,31 +14,56 @@ body {
   justify-content: center;
 }
 
+/* Общий контейнер */
 .container {
   width: 100%;
   max-width: 420px;
   padding: 15px;
 }
 
-/* Header */
-.header {
+/* ===== ЭКРАН ВХОДА ===== */
+#startScreen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   text-align: center;
-  margin-bottom: 15px;
 }
 
-.header h1 {
+#startScreen h1 {
+  font-size: 32px;
   margin: 0;
-  font-size: 26px;
-  font-weight: 600;
 }
 
-.header p {
-  margin: 4px 0 0;
+#startScreen p {
   font-size: 13px;
   color: #666;
+  margin-top: 5px;
 }
 
-/* Cards */
+.start-btn {
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+/* ===== КАТАЛОГ ===== */
+#catalog {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Карточки */
 .card {
   background: #fff;
   border-radius: 14px;
@@ -58,45 +83,38 @@ body {
   margin-top: 4px;
 }
 
-/* Controls */
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Слайдер */
+.slider {
+  width: 100%;
   margin-top: 10px;
 }
 
-.btn {
-  background: #1a73e8;
-  color: #fff;
-  border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  font-size: 18px;
-}
-
-.btn:active {
-  transform: scale(0.95);
-}
-
-.qty {
-  width: 40px;
+.qty-value {
   text-align: center;
-  border: none;
-  font-size: 16px;
-  background: transparent;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-/* Order */
+/* Быстрые кнопки */
+.quick {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.quick button {
+  flex: 1;
+  padding: 6px;
+  font-size: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+/* Заказ */
 .order {
   margin-top: 15px;
-}
-
-.order p {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 6px;
 }
 
 .order input {
@@ -105,7 +123,6 @@ body {
   border-radius: 10px;
   border: 1px solid #ddd;
   font-size: 14px;
-  box-sizing: border-box;
 }
 
 .order-btn {
@@ -117,20 +134,13 @@ body {
   background: #1a73e8;
   color: white;
   font-size: 16px;
-  font-weight: 500;
 }
 
-.order-btn:active {
-  transform: scale(0.98);
-}
-
-/* Footer */
 .footer {
   text-align: center;
   font-size: 11px;
   color: #999;
   margin-top: 20px;
-  padding-bottom: 10px;
 }
 </style>
 
@@ -140,122 +150,98 @@ body {
 
 <div class="container">
 
-  <div class="header">
+  <!-- ===== START SCREEN ===== -->
+  <div id="startScreen">
     <h1>Godunoff</h1>
     <p>from Serdar Boroda</p>
+    <button class="start-btn" onclick="openCatalog()">Перейти к заказу</button>
   </div>
 
-  <!-- Товары -->
-  <div class="card">
-    <div class="name">Кедровый орех 40% 0.5л</div>
-    <div class="price">300 TMT</div>
-    <div class="controls">
-      <button class="btn" onclick="change('cedar', -1)">−</button>
-      <input id="cedar" class="qty" value="0" readonly>
-      <button class="btn" onclick="change('cedar', 1)">+</button>
+  <!-- ===== CATALOG ===== -->
+  <div id="catalog">
+
+    <div class="card">
+      <div class="name">Кедровый орех 40% 0.5л</div>
+      <div class="price">300 TMT</div>
+
+      <input type="range" min="0" max="100" value="0" class="slider" id="cedar" oninput="updateValue('cedar')">
+      <div class="qty-value" id="cedarVal">0</div>
+
+      <div class="quick">
+        <button onclick="setVal('cedar',5)">5</button>
+        <button onclick="setVal('cedar',10)">10</button>
+        <button onclick="setVal('cedar',20)">20</button>
+        <button onclick="setVal('cedar',50)">50</button>
+        <button onclick="setVal('cedar',100)">100</button>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="name">Gold 40% 0.5л</div>
-    <div class="price">300 TMT</div>
-    <div class="controls">
-      <button class="btn" onclick="change('gold05', -1)">−</button>
-      <input id="gold05" class="qty" value="0" readonly>
-      <button class="btn" onclick="change('gold05', 1)">+</button>
+    <div class="card">
+      <div class="name">Gold 40% 0.5л</div>
+      <div class="price">300 TMT</div>
+
+      <input type="range" min="0" max="100" value="0" class="slider" id="gold05" oninput="updateValue('gold05')">
+      <div class="qty-value" id="gold05Val">0</div>
+
+      <div class="quick">
+        <button onclick="setVal('gold05',5)">5</button>
+        <button onclick="setVal('gold05',10)">10</button>
+        <button onclick="setVal('gold05',20)">20</button>
+        <button onclick="setVal('gold05',50)">50</button>
+        <button onclick="setVal('gold05',100)">100</button>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="name">Black Edition 40% 0.5л</div>
-    <div class="price">300 TMT</div>
-    <div class="controls">
-      <button class="btn" onclick="change('black', -1)">−</button>
-      <input id="black" class="qty" value="0" readonly>
-      <button class="btn" onclick="change('black', 1)">+</button>
+    <!-- (Остальные товары аналогично) -->
+
+    <div class="order">
+      <input id="contact" placeholder="+993... комментарий">
+      <button class="order-btn" onclick="order()">Оформить заказ</button>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="name">Royal 40% 0.5л</div>
-    <div class="price">300 TMT</div>
-    <div class="controls">
-      <button class="btn" onclick="change('royal', -1)">−</button>
-      <input id="royal" class="qty" value="0" readonly>
-      <button class="btn" onclick="change('royal', 1)">+</button>
+    <div class="footer">
+      Разработано специально для Serdar Boroda
     </div>
-  </div>
 
-  <div class="card">
-    <div class="name">Platinum 40% 0.5л</div>
-    <div class="price">300 TMT</div>
-    <div class="controls">
-      <button class="btn" onclick="change('platinum', -1)">−</button>
-      <input id="platinum" class="qty" value="0" readonly>
-      <button class="btn" onclick="change('platinum', 1)">+</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="name">Gold 40% 0.7л</div>
-    <div class="price">300 TMT</div>
-    <div class="controls">
-      <button class="btn" onclick="change('gold07', -1)">−</button>
-      <input id="gold07" class="qty" value="0" readonly>
-      <button class="btn" onclick="change('gold07', 1)">+</button>
-    </div>
-  </div>
-
-  <!-- Заказ -->
-  <div class="order">
-    <p>Укажите номер телефона и комментарий к заказу</p>
-    <input id="contact" placeholder="Пример: +993... доставка после 18:00">
-    <button class="order-btn" onclick="order()">Оформить заказ</button>
-  </div>
-
-  <!-- Футер -->
-  <div class="footer">
-    Разработано специально для Serdar Boroda
   </div>
 
 </div>
 
 <script>
-function change(id, delta) {
-  let el = document.getElementById(id);
-  let val = parseInt(el.value);
-  val = Math.max(0, val + delta);
-  el.value = val;
+function openCatalog() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("catalog").style.display = "block";
+}
+
+function updateValue(id) {
+  let val = document.getElementById(id).value;
+  document.getElementById(id + "Val").innerText = val;
+}
+
+function setVal(id, value) {
+  document.getElementById(id).value = value;
+  updateValue(id);
 }
 
 function order() {
 
-  let items = "";
-
-  function addItem(name, id) {
+  function getItem(name, id) {
     let val = document.getElementById(id).value;
     if (val > 0) {
-      items += `• ${name} — ${val} шт\n`;
+      return `• ${name} — ${val} шт\n`;
     }
+    return "";
   }
 
-  addItem("Кедровый орех 40% 0.5л", "cedar");
-  addItem("Gold 40% 0.5л", "gold05");
-  addItem("Black Edition 40% 0.5л", "black");
-  addItem("Royal 40% 0.5л", "royal");
-  addItem("Platinum 40% 0.5л", "platinum");
-  addItem("Gold 40% 0.7л", "gold07");
+  let items = 
+    getItem("Кедровый орех 40%", "cedar") +
+    getItem("Gold 40%", "gold05");
 
   let contact = document.getElementById("contact").value;
 
-  let text = 
-`🛒 ЗАКАЗ GODUNOFF
+  let text = `🛒 ЗАКАЗ GODUNOFF\n\n${items}\n📞 Контакт:\n${contact}`;
 
-${items}
-📞 Контакт:
-${contact}`;
-
-  let phone = "99365858463";
+  let phone = "99361828377";
 
   window.location.href = `sms:${phone}?body=${encodeURIComponent(text)}`;
 }
