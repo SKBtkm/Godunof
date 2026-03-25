@@ -33,7 +33,7 @@ body {
 }
 
 .header p {
-  margin: 3px 0 0;
+  margin: 4px 0 0;
   font-size: 13px;
   color: #666;
 }
@@ -123,6 +123,15 @@ body {
 .order-btn:active {
   transform: scale(0.98);
 }
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: #999;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
 </style>
 
 </head>
@@ -197,11 +206,16 @@ body {
     </div>
   </div>
 
-  <!-- Оформление -->
+  <!-- Заказ -->
   <div class="order">
     <p>Укажите номер телефона и комментарий к заказу</p>
-    <input id="contact" placeholder="+993... доставка, комментарий">
+    <input id="contact" placeholder="Пример: +993... доставка после 18:00">
     <button class="order-btn" onclick="order()">Оформить заказ</button>
+  </div>
+
+  <!-- Футер -->
+  <div class="footer">
+    Разработано специально для Serdar Boroda
   </div>
 
 </div>
@@ -221,20 +235,25 @@ function order() {
   function addItem(name, id) {
     let val = document.getElementById(id).value;
     if (val > 0) {
-      items += `${name}: ${val}%0A`;
+      items += `• ${name} — ${val} шт\n`;
     }
   }
 
-  addItem("Кедровый", "cedar");
-  addItem("Gold 0.5", "gold05");
-  addItem("Black", "black");
-  addItem("Royal", "royal");
-  addItem("Platinum", "platinum");
-  addItem("Gold 0.7", "gold07");
+  addItem("Кедровый орех 40% 0.5л", "cedar");
+  addItem("Gold 40% 0.5л", "gold05");
+  addItem("Black Edition 40% 0.5л", "black");
+  addItem("Royal 40% 0.5л", "royal");
+  addItem("Platinum 40% 0.5л", "platinum");
+  addItem("Gold 40% 0.7л", "gold07");
 
   let contact = document.getElementById("contact").value;
 
-  let text = `ЗАКАЗ GODUNOFF:%0A${items}%0AКонтакт: ${contact}`;
+  let text = 
+`🛒 ЗАКАЗ GODUNOFF
+
+${items}
+📞 Контакт:
+${contact}`;
 
   let phone = "99361828377";
 
